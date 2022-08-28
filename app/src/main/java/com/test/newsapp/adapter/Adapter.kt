@@ -13,11 +13,11 @@ import com.test.newsapp.data.NewsModel
 import com.test.newsapp.R
 import kotlinx.android.synthetic.main.news_card.view.*
 
-class Adapter(var News:MutableList<NewsModel>, var listener:(NewsModel)->Unit): RecyclerView.Adapter<Adapter.Viewholder>() {
+class Adapter(var News: MutableList<NewsModel>, var listener: (NewsModel) -> Unit) :
+    RecyclerView.Adapter<Adapter.Viewholder>() {
 
     lateinit var dbNews: NewsDatabase
 
-    // creates a viewholder and assigns its data
     class Viewholder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         fun onbind(NewsStory: NewsModel) {
@@ -30,7 +30,7 @@ class Adapter(var News:MutableList<NewsModel>, var listener:(NewsModel)->Unit): 
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int):Adapter.Viewholder =
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Adapter.Viewholder =
         Adapter.Viewholder(
             LayoutInflater.from(parent.context).inflate(
                 R.layout.news_card,
@@ -39,38 +39,35 @@ class Adapter(var News:MutableList<NewsModel>, var listener:(NewsModel)->Unit): 
             )
         )
 
-    override fun onBindViewHolder(holder: Viewholder, position: Int)  {
+    override fun onBindViewHolder(holder: Viewholder, position: Int) {
 
-        dbNews= NewsDatabase.getSavedItems(holder.itemView.context)
+        dbNews = NewsDatabase.getSavedItems(holder.itemView.context)
         val Newsitem = News[position]
 
         holder.onbind(Newsitem)
         holder.itemView.setOnClickListener {
-            listener(Newsitem) }
+            listener(Newsitem)
+        }
 
-        // checks if entity is present; if present it changes the color of the icon to purple
         if (dbNews.getNewsDao().getCount(Newsitem.title) == 1)
             holder.itemView.menuIcon.setColorFilter(Color.parseColor("#6200EE"))
 
         holder.itemView.menuIcon.setOnClickListener {
-            // checks if entity is present; if present the entity will get saved , icon changes to purple and a toast will be shown
             if (dbNews.getNewsDao().getCount(Newsitem.title) == 0) {
                 dbNews.getNewsDao().insertNews(Newsitem)
                 holder.itemView.menuIcon.setColorFilter(Color.parseColor("#6200EE"))
-                Toast.makeText(holder.itemView.context, "News Saved", Toast.LENGTH_SHORT).show() }
-
-            // checks if entity is present; if not present the entity will get deleted, icon changes to grey and a toast will be shown
-            else {
+                Toast.makeText(holder.itemView.context, "News Saved", Toast.LENGTH_SHORT).show()
+            } else {
                 dbNews.getNewsDao().delete(Newsitem)
                 holder.itemView.menuIcon.setColorFilter(Color.parseColor("#484a49"))
-                Toast.makeText(holder.itemView.context, "News Unsaved", Toast.LENGTH_SHORT).show() }
+                Toast.makeText(holder.itemView.context, "News Unsaved", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 
     override fun getItemCount(): Int = News.size
 
-    // adds data to the recycler view
-    fun appendNews(updateNews: List<NewsModel>){
+    fun appendNews(updateNews: List<NewsModel>) {
         this.News.addAll(updateNews)
         notifyItemRangeInserted(
             this.News.size,

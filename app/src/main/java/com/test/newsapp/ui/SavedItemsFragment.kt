@@ -29,7 +29,6 @@ class SavedItemsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         dbNews = NewsDatabase.getSavedItems(requireActivity().applicationContext)
-        // gets entity from database
         adapter = Adapter(dbNews.getNewsDao().getAllSavedNews() as MutableList<NewsModel>) { e ->
             onClickCard(
                 e
@@ -41,7 +40,6 @@ class SavedItemsFragment : Fragment() {
         rv_saved.layoutManager = llm
     }
 
-    // navigates to the ItemDetailsFragment
     private fun onClickCard(new : NewsModel) {
         val newsViewModel: NewsViewModel = ViewModelProvider(requireActivity())[NewsViewModel::class.java]
         newsViewModel.onNewsModelSelected(new)

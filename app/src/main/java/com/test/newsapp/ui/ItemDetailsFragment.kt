@@ -7,7 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.lifecycle.Observer
+//import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
@@ -31,44 +31,43 @@ class ItemDetailsFragment : Fragment() {
 
         val dbNews: NewsDatabase = NewsDatabase.getSavedItems(requireActivity().applicationContext)
         val fmodel: NewsViewModel = ViewModelProvider(requireActivity())[NewsViewModel::class.java]
-        // observes the changes in the NewsViewModel
-        fmodel.getSelectedNewsModel().observe(requireActivity(),
-            Observer<NewsModel> { it ->
-                nModel = it })
+        fmodel.getSelectedNewsModel().observe(requireActivity()
+        ) {
+            nModel = it
+        }
 
         super.onViewCreated(view, savedInstanceState)
         addData()
 
-        readFull.setOnClickListener{
-            findNavController().navigate(R.id.action_itemDetailsFragment_to_webFragment3) }
+        readFull.setOnClickListener {
+            findNavController().navigate(R.id.action_itemDetailsFragment_to_webFragment3)
+        }
 
-        // checks if entity is present; if present it changes the color of the icon to purple
-        if (dbNews.getNewsDao().getCount(nModel.title )==1 )
+        if (dbNews.getNewsDao().getCount(nModel.title) == 1)
             bookmark_icon.setColorFilter(Color.parseColor("#6200EE"))
 
-        // checks if entity is present; if present the entity will get saved , icon changes to purple and a toast will be shown
         bookmark_icon.setOnClickListener {
-            if (dbNews.getNewsDao().getCount(nModel.title ) ==0 ) {
+            if (dbNews.getNewsDao().getCount(nModel.title) == 0) {
                 dbNews.getNewsDao().insertNews(nModel)
                 bookmark_icon.setColorFilter(Color.parseColor("#6200EE"))
-                Toast.makeText(context, "News Saved", Toast.LENGTH_SHORT).show() }
-
-            // checks if entity is present; if not present the entity will get deleted, icon changes to grey and a toast will be shown
-            else {
+                Toast.makeText(context, "News Saved", Toast.LENGTH_SHORT).show()
+            } else {
                 dbNews.getNewsDao().delete(nModel)
                 bookmark_icon.setColorFilter(Color.parseColor("#484a49"))
-                Toast.makeText(context, "News Unsaved", Toast.LENGTH_SHORT).show() }
+                Toast.makeText(context, "News Unsaved", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 
-    // adds the data to the ItemViewDetailsFragment
-    private fun addData(){
+    private fun addData() {
         date_time.text = nModel.publishedAt
         des.text = nModel.desciption
         website2.text = nModel.source.name
+        articleTitle2.text = nModel.title
         val image = nModel.urlToImage
         Glide.with(requireActivity())
             .load(image)
             .transform(CenterCrop())
-            .into(imageView3)}
+            .into(imageView3)
+    }
 }

@@ -6,7 +6,7 @@
     <string name="description">the brown fox jumps over the lazy dog</string>
     <string name="date_and_time">Date and time</string>
     <string name="website">Website</string>
-    <string name="read_full_story">Read Full Story</string>
+    <string name="read_full_story">Read Full News</string>
     <string name="publish">Publisher</string>
     <string name="news_app">News App</string>
 </resources>

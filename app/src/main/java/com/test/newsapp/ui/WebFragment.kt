@@ -7,7 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.webkit.WebViewClient
-import androidx.lifecycle.Observer
+//import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.test.newsapp.R
 import com.test.newsapp.data.NewsModel
@@ -27,12 +27,10 @@ class WebFragment : Fragment() {
         lateinit var nModel: NewsModel
 
         val fmodel: NewsViewModel = ViewModelProvider(requireActivity())[NewsViewModel::class.java]
-        // observes the changes in the NewsViewModel
-        fmodel.getSelectedNewsModel().observe(requireActivity(),
-            Observer<NewsModel> { t -> nModel=t!! })
+        fmodel.getSelectedNewsModel().observe(requireActivity()
+        ) { t -> nModel = t!! }
 
         super.onViewCreated(view, savedInstanceState)
-        // retrieves the link of the webpage
         wb.settings.javaScriptEnabled = true
         wb.webViewClient = WebViewClient()
         wb.loadUrl(nModel.url.toString())

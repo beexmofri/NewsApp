@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.lifecycle.Observer
+//import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -41,25 +41,19 @@ class HeadlinesFragment : Fragment() {
         getPopularNews()
     }
 
-    // the network gets called, so the data can be retrieved
     fun getPopularNews() {
         vm.fetchHeadlines(currentPage)
-        // checks if the callback is retrieved
-        vm.getOnSuccess().observe(requireActivity(), object : Observer<Boolean> {
-            override fun onChanged(t: Boolean?) {
-                if (!t!!)
-                    onError()
-            }
-        })
-        vm.mutableNewsList.observe(requireActivity(), object : Observer<ArrayList<NewsModel>> {
-            override fun onChanged(list: ArrayList<NewsModel>?) {
-                adapter.appendNews(list as ArrayList<NewsModel>)
-                attachOnClickListener()
-            }
-        })
+        vm.getOnSuccess().observe(requireActivity()) { t ->
+            if (!t!!)
+                onError()
+        }
+        vm.mutableNewsList.observe(requireActivity()
+        ) { list ->
+            adapter.appendNews(list as ArrayList<NewsModel>)
+            attachOnClickListener()
+        }
     }
 
-    // updates the NewsViewModel and then navigates to the ItemDetailsFragment
     private fun onClickCard(new: NewsModel) {
         val newsViewModel: NewsViewModel =
             ViewModelProvider(requireActivity())[NewsViewModel::class.java]
@@ -69,12 +63,11 @@ class HeadlinesFragment : Fragment() {
         )
     }
 
-    fun onError() {
+    private fun onError() {
         Toast.makeText(activity, "No Internet Connection", Toast.LENGTH_SHORT).show()
     }
 
-    // allows the recycler view to scroll
-    fun attachOnClickListener() {
+    private fun attachOnClickListener() {
         rv_news.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 val totalItems = llm.itemCount
