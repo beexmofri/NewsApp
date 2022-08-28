@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.ItemDetailsFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:contentDescription="@string/image"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/ic_launcher"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/articleTitle2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#e6ecec"
+        android:paddingLeft="10dp"
+        android:paddingTop="15dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="14dp"
+        android:text="@string/description"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@id/imageView3" />
+
+    <TextView
+        android:id="@+id/date_time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#e6ecec"
+        android:paddingStart="10dp"
+        android:paddingBottom="1dp"
+        android:text="@string/date_and_time"
+        android:textColor="#6b706c"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/articleTitle2" />
+
+    <TextView
+        android:id="@+id/website2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#e6ecec"
+        android:paddingStart="10dp"
+        android:paddingBottom="10dp"
+        android:text="@string/website"
+        android:textColor="#6b706c"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@+id/date_time" />
+
+    <Button
+        android:id="@+id/readFull"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:background="#3f413e"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:text="@string/read_full_story"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/des"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginTop="50dp"
+        android:paddingLeft="10dp"
+        android:paddingTop="20dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="20dp"
+        android:text="@string/publish"
+        android:textColor="#5d6160"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@id/readFull"
+        app:layout_constraintTop_toBottomOf="@id/website2" />
+
+    <ImageView
+        android:id="@+id/share_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/image"
+        android:paddingTop="5dp"
+        android:paddingEnd="20dp"
+        android:src="@drawable/ic_baseline_share_24"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/articleTitle2" />
+
+    <ImageView
+        android:id="@+id/bookmark_icon"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginEnd="15dp"
+        android:contentDescription="@string/image"
+        android:src="@drawable/ic_saved"
+        app:layout_constraintEnd_toStartOf="@id/share_icon"
+        app:layout_constraintTop_toBottomOf="@id/articleTitle2" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
